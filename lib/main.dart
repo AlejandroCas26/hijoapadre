@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(
     const MaterialApp(
-      title: 'Returning Data',
+      title: 'Devolviendo el Dato',
       home: HomeScreen(),
     ),
   );
@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Returning Data Demo'),
+        title: const Text('Hijo a Padre'),
       ),
       body: const Center(
         child: SelectionButton(),
@@ -39,17 +39,15 @@ class _SelectionButtonState extends State<SelectionButton> {
       onPressed: () {
         _navigateAndDisplaySelection(context);
       },
-      child: const Text('Pick an option, any option!'),
+      child: const Text('Selecciona, cualquier opcion!'),
     );
   }
-
   Future<void> _navigateAndDisplaySelection(BuildContext context) async {
-    
+   
     final result = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const SelectionScreen()),
     );
-
     if (!mounted) return;
 
     ScaffoldMessenger.of(context)
@@ -58,3 +56,40 @@ class _SelectionButtonState extends State<SelectionButton> {
   }
 }
 
+class SelectionScreen extends StatelessWidget {
+  const SelectionScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Escoge una'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context, 'Si!');
+                },
+                child: const Text('Si!'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: ElevatedButton(
+                onPressed: () {
+                   Navigator.pop(context, 'No.');
+                },
+                child: const Text('No.'),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
